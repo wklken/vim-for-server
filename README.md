@@ -5,13 +5,13 @@ vim-for-server
 
 # Install
 
-1. backup your old .vimrc if it is necessary
+#### 1. backup your old .vimrc if it is necessary
 
 ```
 cp ~/.vimrc ~/.vimrc_bak
 ```
 
-2. just get the file
+#### 2. just get the file
 
 recommend
 ```
@@ -24,11 +24,11 @@ git clone https://github.com/wklken/vim-for-server.git
 ln -s vim-for-server/vimrc ~/.vimrc
 ```
 
-3. Done, enjoy it
+#### 3. Done, enjoy it
 
 # Introduction
 
-This repository is a simplify version of [k-vim](https://github.com/wklken/k-vim)
+This repository is a simplified version of [k-vim](https://github.com/wklken/k-vim)
 
 
 # Donation
