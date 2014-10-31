@@ -3,6 +3,10 @@ vim-for-server
 
 .vimrc, simple configures for server, without plugins.
 
+# Screenshot
+
+![screenshot](https://raw.githubusercontent.com/wklken/gallery/master/vim/vim-for-server.png)
+
 # Install
 
 #### 1. backup your old .vimrc if it is necessary
