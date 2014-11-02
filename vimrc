@@ -1,11 +1,12 @@
 "==========================================
+" ProjectLink: https://github.com/wklken/vim-for-server
 " Author:  wklken
 " Version: 0.1
 " Email: wklken@yeah.net
 " BlogPost: http://www.wklken.me
-" ReadMe: README.md
 " Donation: http://www.wklken.me/pages/donation.html
-" Last_modify: 2014-10-46
+" ReadMe: README.md
+" Last_modify: 2014-11-02
 " Sections:
 " Desc: simple vim config for server, without any plugins.
 "==========================================
@@ -17,25 +18,26 @@ let g:mapleader = ','
 " syntax
 syntax on
 
-" history
+" history : how many lines of history VIM has to remember
 set history=2000
 
 " filetype
 filetype on
-filetype indent on
+" Enable filetype plugins
 filetype plugin on
-filetype plugin indent on
+filetype indent on
 
 
 " base
-set nocompatible                " use vim defaults
-set autoread
+set nocompatible                " don't bother with vi compatibility
+set autoread                    " reload files when changed on disk, i.e. via `git checkout`
 set shortmess=atI
 
-set magic
+set magic                       " For regular expressions turn magic on
 set title                       " change the terminal's title
 set nobackup                    " do not keep a backup file
 set novisualbell                " turn off visual bell
+set noerrorbells         " don't beep
 set visualbell t_vb=            " turn off error beep/flash
 set t_vb=
 set tm=500
@@ -77,14 +79,14 @@ set matchtime=2                 " tenths of a second to show the matching parent
 
 " search
 set hlsearch                    " highlight searches
-set incsearch                   " do incremental searching
+set incsearch                   " do incremental searching, search as you type
 set ignorecase                  " ignore case when searching
 set smartcase                   " no ignorecase if Uppercase char present
 
 noremap <silent><leader>/ :nohls<CR>
 
 " tab
-set expandtab
+set expandtab                   " expand tabs to spaces
 set smarttab
 set shiftround
 
@@ -92,7 +94,7 @@ set shiftround
 set autoindent smartindent shiftround
 set shiftwidth=4
 set tabstop=4
-set softtabstop=4
+set softtabstop=4                " insert mode tab and backspace use 4 spaces
 
 vnoremap < <gv
 vnoremap > >gv
@@ -115,10 +117,18 @@ set selection=inclusive
 set selectmode=mouse,key
 
 set completeopt=longest,menu
-set wildmenu
+set wildmenu                           " show a navigable menu for tab completion"
+set wildmode=longest,list,full
 set wildignore=*.o,*~,*.pyc,*.class
 
 
+" if this not work ,make sure .viminfo is writable for you
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+" Enable basic mouse behavior such as resizing buffers.
+set mouse=a
 
 " theme
 set background=dark
@@ -159,6 +169,9 @@ set backspace=indent,eol,start  " make that backspace key work the way it should
 set whichwrap+=<,>,h,l
 cmap w!! w !sudo tee >/dev/null %
 
+" kj 替换 Esc
+inoremap kj <Esc>
+
 nnoremap <F2> :set nu! nu?<CR>
 nnoremap <F3> :set list! list?<CR>
 nnoremap <F4> :set wrap! wrap?<CR>
@@ -173,5 +186,5 @@ fun! <SID>StripTrailingWhitespaces()
     %s/\s\+$//e
     call cursor(l, c)
 endfun
-autocmd FileType c,cpp,java,php,ruby,python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
