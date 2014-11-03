@@ -99,10 +99,11 @@ set softtabstop=4                " insert mode tab and backspace use 4 spaces
 vnoremap < <gv
 vnoremap > >gv
 
+" NOT SUPPORT
 " fold
-set foldenable
-set foldmethod=indent
-set foldlevel=99
+" set foldenable
+" set foldmethod=indent
+" set foldlevel=99
 
 " encoding
 set encoding=utf-8
@@ -127,8 +128,9 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
+" NOT SUPPORT
 " Enable basic mouse behavior such as resizing buffers.
-set mouse=a
+" set mouse=a
 
 " theme
 set background=dark
