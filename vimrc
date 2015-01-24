@@ -190,3 +190,16 @@ fun! <SID>StripTrailingWhitespaces()
 endfun
 autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
+" remap vim
+command! WQ wq
+command! Wq wq
+command! W w
+command! Q q
+" Q map to q, to quit vim
+command! -bar -bang Q quit<bang>
+" no ex mode
+nnoremap Q <nop>
+
+" update vim on the fly
+nmap <leader>v :tabedit $MYVIMRC<CR>
+nmap <leader>V :tabedit $MYVIMRC<CR>
