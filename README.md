@@ -3,6 +3,12 @@ vim-for-server
 
 .vimrc, simple configures for server, without plugins.
 
+# Introduction
+
+This repository is a simplified version of [k-vim](https://github.com/wklken/k-vim)
+
+Just remove all plugins, keep basic config.
+
 # Screenshot
 
 ![screenshot](https://raw.githubusercontent.com/wklken/gallery/master/vim/vim-for-server.png)
@@ -29,10 +35,6 @@ ln -s vim-for-server/vimrc ~/.vimrc
 ```
 
 #### 3. Done, enjoy it
-
-# Introduction
-
-This repository is a simplified version of [k-vim](https://github.com/wklken/k-vim)
 
 
 # Donation
