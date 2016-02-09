@@ -49,7 +49,7 @@ set cursorline
 
 
 " movement
-set scrolloff=7                 " keep 3 lines when scrolling
+set scrolloff=7                 " keep 7 lines when scrolling
 
 
 " show
