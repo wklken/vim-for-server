@@ -55,7 +55,7 @@ set scrolloff=7                 " keep 7 lines when scrolling
 " show
 set ruler                       " show the current row and column
 set number                      " show line numbers
-set nowrap
+set wrap
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set showmatch                   " jump to matches when entering parentheses
