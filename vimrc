@@ -44,8 +44,8 @@ set tm=500
 
 
 " show location
-set cursorcolumn
-set cursorline
+" set cursorcolumn
+" set cursorline
 
 
 " movement
