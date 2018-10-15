@@ -242,6 +242,10 @@ map Y y$
 " ex mode commands made easy 用于快速进入命令行
 nnoremap ; :
 
+" Shift+H goto head of the line, Shift+L goto end of the line
+nnoremap H ^
+nnoremap L $
+
 " save
 cmap w!! w !sudo tee >/dev/null %
 
