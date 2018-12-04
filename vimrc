@@ -26,6 +26,9 @@ filetype on
 filetype plugin on
 filetype indent on
 
+" save
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!             " sudo save and reload
+command Wq :execute ':silent w !sudo tee % > /dev/null' | :edit! |:quit     " sudo save and exit
 
 " base
 set nocompatible                " don't bother with vi compatibility
@@ -245,9 +248,6 @@ nnoremap ; :
 " Shift+H goto head of the line, Shift+L goto end of the line
 nnoremap H ^
 nnoremap L $
-
-" save
-cmap w!! w !sudo tee >/dev/null %
 
 " command mode, ctrl-a to head， ctrl-e to tail
 cnoremap <C-j> <t_kd>
