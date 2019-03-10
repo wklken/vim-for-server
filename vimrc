@@ -44,7 +44,7 @@ set tm=500
 
 
 " show location
-set cursorcolumn
+"set cursorcolumn
 set cursorline
 
 
@@ -243,6 +243,8 @@ map Y y$
 nnoremap ; :
 
 " Shift+H goto head of the line, Shift+L goto end of the line
+nnoremap J L
+nnoremap K H
 nnoremap H ^
 nnoremap L $
 
