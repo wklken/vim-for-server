@@ -55,7 +55,7 @@ set scrolloff=7                 " keep 3 lines when scrolling
 " show
 set ruler                       " show the current row and column
 set number                      " show line numbers
-set nowrap
+"set nowrap
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set showmatch                   " jump to matches when entering parentheses
@@ -204,6 +204,8 @@ inoremap kj <Esc>
 nnoremap <leader>q :q<CR>
 " Quickly save the current file
 nnoremap <leader>w :w<CR>
+" Quickly save and quit
+nnoremap <leader>x :x<CR>
 
 " select all
 map <Leader>sa ggVG"
