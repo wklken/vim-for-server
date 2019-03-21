@@ -182,6 +182,8 @@ nnoremap k gk
 nnoremap gk k
 nnoremap j gj
 nnoremap gj j
+nnoremap gh ^
+nnoremap gl $
 
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -260,8 +262,8 @@ nnoremap ; :
 " Shift+H goto head of the line, Shift+L goto end of the line
 nnoremap J L
 nnoremap K H
-nnoremap H ^
-nnoremap L $
+nnoremap H g^
+nnoremap L g$
 
 " save
 cmap w!! w !sudo tee >/dev/null %
