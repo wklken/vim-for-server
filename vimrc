@@ -194,7 +194,20 @@ nnoremap <F4> :set wrap! wrap?<CR>
 set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
+
+" disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
+
+" F5 set paste问题已解决, 粘贴代码前不需要按F5了
+" F5 粘贴模式paste_mode开关,用于有格式的代码粘贴
+" Automatically set paste mode in Vim when pasting in insert mode
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
 " kj 替换 Esc
