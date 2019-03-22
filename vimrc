@@ -44,7 +44,7 @@ set tm=500
 
 
 " show location
-set cursorcolumn
+"set cursorcolumn
 set cursorline
 
 
@@ -55,7 +55,7 @@ set scrolloff=7                 " keep 3 lines when scrolling
 " show
 set ruler                       " show the current row and column
 set number                      " show line numbers
-set nowrap
+"set nowrap
 set showcmd                     " display incomplete commands
 set showmode                    " display current modes
 set showmatch                   " jump to matches when entering parentheses
@@ -182,6 +182,8 @@ nnoremap k gk
 nnoremap gk k
 nnoremap j gj
 nnoremap gj j
+nnoremap gh ^
+nnoremap gl $
 
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -194,7 +196,20 @@ nnoremap <F4> :set wrap! wrap?<CR>
 set pastetoggle=<F5>            "    when in insert mode, press <F5> to go to
                                 "    paste mode, where you can paste mass data
                                 "    that won't be autoindented
+
+" disbale paste mode when leaving insert mode
 au InsertLeave * set nopaste
+
+" F5 set paste问题已解决, 粘贴代码前不需要按F5了
+" F5 粘贴模式paste_mode开关,用于有格式的代码粘贴
+" Automatically set paste mode in Vim when pasting in insert mode
+function! XTermPasteBegin()
+  set pastetoggle=<Esc>[201~
+  set paste
+  return ""
+endfunction
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+
 nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 
 " kj 替换 Esc
@@ -204,6 +219,8 @@ inoremap kj <Esc>
 nnoremap <leader>q :q<CR>
 " Quickly save the current file
 nnoremap <leader>w :w<CR>
+" Quickly save and quit
+nnoremap <leader>x :x<CR>
 
 " select all
 map <Leader>sa ggVG"
@@ -243,8 +260,10 @@ map Y y$
 nnoremap ; :
 
 " Shift+H goto head of the line, Shift+L goto end of the line
-nnoremap H ^
-nnoremap L $
+nnoremap J L
+nnoremap K H
+nnoremap H g^
+nnoremap L g$
 
 " save
 cmap w!! w !sudo tee >/dev/null %
