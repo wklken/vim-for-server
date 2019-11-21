@@ -1,13 +1,15 @@
 "==========================================
-" ProjectLink: https://github.com/wklken/vim-for-server
-" Author:  wklken
-" Version: 0.2
-" Email: wklken@yeah.net
+" ProjectLink: https://github.com/the-eric-kwok/vim-for-server
+" Author:  wklken & Eric
+" Version: 0.3
+" Email: wklken@yeah.net erickwok404@gmail.com
 " BlogPost: http://www.wklken.me
 " Donation: http://www.wklken.me/pages/donation.html
 " ReadMe: README.md
-" Last_modify: 2015-07-07
+" Last_modify: 2019-11-21
 " Desc: simple vim config for server, without any plugins.
+" Install with a simple command: 
+"     curl https://raw.githubusercontent.com/the-eric-kwok/vim-for-server/master/vimrc > ~/.vimrc
 "==========================================
 
 " leader
