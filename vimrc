@@ -1,13 +1,15 @@
 "==========================================
-" ProjectLink: https://github.com/wklken/vim-for-server
-" Author:  wklken
-" Version: 0.2
-" Email: wklken@yeah.net
+" ProjectLink: https://github.com/the-eric-kwok/vim-for-server
+" Author:  wklken & Eric
+" Version: 0.3
+" Email: wklken@yeah.net erickwok404@gmail.com
 " BlogPost: http://www.wklken.me
 " Donation: http://www.wklken.me/pages/donation.html
 " ReadMe: README.md
-" Last_modify: 2015-07-07
+" Last_modify: 2019-11-21
 " Desc: simple vim config for server, without any plugins.
+" Install with a simple command: 
+"     curl https://raw.githubusercontent.com/the-eric-kwok/vim-for-server/master/vimrc > ~/.vimrc
 "==========================================
 
 " leader
@@ -26,6 +28,9 @@ filetype on
 filetype plugin on
 filetype indent on
 
+" save
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!             " sudo save and reload
+command Wq :execute ':silent w !sudo tee % > /dev/null' | :edit! |:quit     " sudo save and exit
 
 " base
 set nocompatible                " don't bother with vi compatibility
@@ -147,7 +152,7 @@ set laststatus=2   " Always show the status line - use 2 lines for the status ba
 " ============================ specific file type ===========================
 
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
-autocmd FileType ruby set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+autocmd FileType ruby,json,plist set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 autocmd BufRead,BufNew *.md,*.mkd,*.markdown  set filetype=markdown.mkd
 
 autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
@@ -245,9 +250,6 @@ nnoremap ; :
 " Shift+H goto head of the line, Shift+L goto end of the line
 nnoremap H ^
 nnoremap L $
-
-" save
-cmap w!! w !sudo tee >/dev/null %
 
 " command mode, ctrl-a to head， ctrl-e to tail
 cnoremap <C-j> <t_kd>
