@@ -55,6 +55,9 @@ set tm=500
 set splitbelow                  " 设置分屏默认新建在下方
 set splitright                  " 设置分屏默认新建在右边
 
+set nottyfast                   " 尽可能减少带宽需求以增加流畅度
+set lazyredraw                  " 尽可能减少带宽需求以增加流畅度
+
 " show location
 set cursorcolumn
 set cursorline
@@ -134,9 +137,12 @@ if has("autocmd")
   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-" NOT SUPPORT
-" Enable basic mouse behavior such as resizing buffers.
-" set mouse=a
+" Disable mouse
+set mouse=
+" Enable mouse
+"set mouse=a
+" Hide the mouse cursor while typing
+set mousehide
 
 
 " ============================ theme and status line ============================
@@ -161,19 +167,31 @@ set laststatus=2   " Always show the status line - use 2 lines for the status ba
 
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
 autocmd FileType ruby,json,plist set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
-autocmd BufRead,BufNew *.md,*.mkd,*.markdown  set filetype=markdown.mkd
+autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
+autocmd BufRead,BufNewFile *.part set filetype=html
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+autocmd BufRead,BufNewFile *.plist set filetype=plist
+autocmd BufRead,BufNewFile *.command set filetype=sh
+autocmd BufRead,BufNewFile *.pyw set filetype=python
 
-autocmd BufNewFile *.sh,*.py exec ":call AutoSetFileHead()"
+
+" Shell、Python、bat 脚本自动加上 hashbag
+autocmd BufNewFile *.bat,*.sh,*.command,*.py,*.pyw exec ":call AutoSetFileHead()"
 function! AutoSetFileHead()
     " .sh
     if &filetype == 'sh'
         call setline(1, "\#!/bin/bash")
     endif
 
+    " .bat
+    if &filetype == 'dosbatch'
+        call setline(1, "@echo off")
+    endif
+
     " python
     if &filetype == 'python'
-        call setline(1, "\#!/usr/bin/env python")
-        call append(1, "\# encoding: utf-8")
+        call setline(1, "\#!/usr/bin/env python3")
+        call append(1, "\# -*- encoding: utf-8 -*-")
     endif
 
     normal G
@@ -241,8 +259,11 @@ nnoremap <space>w :w<CR>
 " select all
 map <space>sa ggVG"
 
-" select this word
-map <A-v> lbve
+" select block
+nnoremap <space>v V`}
+
+" select word
+noremap <A-v> lbve
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
@@ -297,14 +318,16 @@ inoremap <C-a> <Home>
 inoremap <C-e> <End>
 
 " ctrl-f 映射为搜索
-nmap <C-F> /
-vmap <C-F> /
+map <C-F> /
 
 " 进入搜索Use sane regexes"
 nnoremap / /\v
 vnoremap / /\v
 nnoremap ? ?\v
 vnoremap ? ?\v
+
+" 去掉搜索高亮
+noremap <silent><space>/ :nohls<CR>
 
 " command mode, ctrl-a to head， ctrl-e to tail
 cnoremap <C-j> <t_kd>
