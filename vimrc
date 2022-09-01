@@ -30,7 +30,12 @@ filetype indent on
 
 " save
 command W :execute ':silent w !sudo tee % > /dev/null' | :edit!             " sudo save and reload
-command Wq :execute ':silent w !sudo tee % > /dev/null' | :edit! |:quit     " sudo save and exit
+command Wq :execute ':silent w !sudo tee % > /dev/null' | :quit             " sudo save and exit
+
+" set default shell on Windows
+if has("win32") || has("win16")
+    set shell=C:\\Windows\\SysWOW64\\WindowsPowerShell\\v1.0\\powershell.exe
+endif
 
 " base
 set nocompatible                " don't bother with vi compatibility
@@ -47,11 +52,12 @@ set visualbell t_vb=            " turn off error beep/flash
 set t_vb=
 set tm=500
 
+set splitbelow                  " 设置分屏默认新建在下方
+set splitright                  " 设置分屏默认新建在右边
 
 " show location
 set cursorcolumn
 set cursorline
-
 
 " movement
 set scrolloff=7                 " keep 3 lines when scrolling
@@ -91,7 +97,7 @@ set foldenable
 set foldmethod=indent
 set foldlevel=99
 let g:FoldMethod = 0
-map <leader>zz :call ToggleFold()<cr>
+map <space>zz :call ToggleFold()<cr>
 fun! ToggleFold()
     if g:FoldMethod == 0
         exe "normal! zM"
@@ -138,6 +144,8 @@ endif
 " theme
 set background=dark
 colorscheme desert
+hi CursorLine term=bold cterm=bold ctermbg=DarkGray guibg=Grey40
+hi CursorColumn ctermbg=DarkGray cterm=bold
 
 " set mark column color
 hi! link SignColumn   LineNr
@@ -188,10 +196,30 @@ nnoremap gk k
 nnoremap j gj
 nnoremap gj j
 
+" 分屏窗口移动
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
+tmap <C-j> <C-W>j
+tmap <C-k> <C-W>k
+tmap <C-h> <C-W>h
+tmap <C-l> <C-W>l
+
+" <Space> - Z 最大化 / 还原分屏
+function! s:ZoomToggle() abort
+    if exists('t:zoomed') && t:zoomed
+        execute t:zoom_winrestcmd
+        let t:zoomed = 0
+    else
+        let t:zoom_winrestcmd = winrestcmd()
+        resize
+        vertical resize
+        let t:zoomed = 1
+    endif
+endfunction
+command! ZoomToggle call s:ZoomToggle()
+nnoremap <silent> <space>z :ZoomToggle<CR>
 
 nnoremap <F2> :set nu! nu?<CR>
 nnoremap <F3> :set list! list?<CR>
@@ -206,12 +234,15 @@ nnoremap <F6> :exec exists('syntax_on') ? 'syn off' : 'syn on'<CR>
 inoremap kj <Esc>
 
 " Quickly close the current window
-nnoremap <leader>q :q<CR>
+nnoremap <space>q :q<CR>
 " Quickly save the current file
-nnoremap <leader>w :w<CR>
+nnoremap <space>w :w<CR>
 
 " select all
-map <Leader>sa ggVG"
+map <space>sa ggVG"
+
+" select this word
+map <A-v> lbve
 
 " remap U to <C-r> for easier redo
 nnoremap U <C-r>
@@ -234,7 +265,7 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
 " remove highlight
-noremap <silent><leader>/ :nohls<CR>
+noremap <silent><space>/ :nohls<CR>
 
 "Reselect visual block after indent/outdent.调整缩进后自动选中，方便再次操作
 vnoremap < <gv
@@ -253,14 +284,42 @@ nnoremap L $
 vnoremap H ^
 vnoremap L $
 
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
+" Shift+K 向下滚动半屏, Shift+J 向上滚动半屏
+nnoremap J <C-d>
+nnoremap K <C-u>
+vnoremap J <C-d>
+vnoremap K <C-u>
+
+" 普通模式、编辑模式 ctrl-a ctrl-e 跳转行首尾
+nnoremap <C-a> <Home>
+nnoremap <C-e> <End>
+inoremap <C-a> <Home>
+inoremap <C-e> <End>
+
+" ctrl-f 映射为搜索
+nmap <C-F> /
+vmap <C-F> /
+
 " 进入搜索Use sane regexes"
 nnoremap / /\v
 vnoremap / /\v
+nnoremap ? ?\v
+vnoremap ? ?\v
 
 " command mode, ctrl-a to head， ctrl-e to tail
 cnoremap <C-j> <t_kd>
 cnoremap <C-k> <t_ku>
 cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
+
+" 系统剪贴板快捷键
+vnoremap <space>y "+y
+vnoremap <space>x "+x
+nnoremap <space>p "+p
+vnoremap <space>p "+p
+
+" 调整分屏大小
+nnoremap <space>- <C-w>-
+tnoremap <space>- <C-w>-
+nnoremap <space>= <C-w>=
+tnoremap <space>= <C-w>=
